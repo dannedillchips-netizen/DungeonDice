@@ -11,7 +11,7 @@ public class PlayerLogic : MonoBehaviour
 
     public float howClose = 6f;
 
-    public GameObject spawnObject;
+    public GameObject[] spawnObjects;
     
     private InputAction m_DragStart_action;
     private InputAction m_DragCurrent_action;
@@ -72,7 +72,7 @@ public class PlayerLogic : MonoBehaviour
 
     private void SpawnDice()
     {
-        HeldDice = Instantiate(spawnObject);//SpawnDice
+        HeldDice = Instantiate(spawnObjects[Random.Range(0,spawnObjects.Length -1 )]);//SpawnDice
         _moveWithPointer = HeldDice.GetComponent<IMoveWithPointer>();
         _moveWithPointer.DragStartWithPointer(m_DragStart_action.ReadValue<Vector2>());
 

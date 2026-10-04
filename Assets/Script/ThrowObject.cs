@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ThrowObject : MonoBehaviour,IMoveWithPointer
@@ -59,7 +60,7 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
             Vector3 OldPosition = transform.position;
             transform.position = cam.ScreenToWorldPoint(v3);
             Vector3 MovingDir =  (OldPosition - transform.position).normalized;
-            Debug.Log(MovingDir);
+            //Debug.Log(MovingDir);
             //transform.rotation = Quaternion.LookRotation(MovingDir).ToEuler();
             //transform.rotation = transform.rotation * ((Quaternion.LookRotation(MovingDir * Time.deltaTime)));
         }
@@ -103,7 +104,8 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
         swipeTime = endTime - startTime;
 
 
-        if (swipeTime < FlickSpeed && swipeDistance > FlickLength && endPos.y > startPos.y)
+        //swipeTime < FlickSpeed && swipeDistance > FlickLength && 
+        if (endPos.y > startPos.y)
         {
             thrown = true;
             CalSpeed();
@@ -143,13 +145,17 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
         v3End = cam.ScreenToWorldPoint(v3End);
         
         Vector3 travelDir = (v3End - v3Start).normalized;
-        
+        if (travelDir.y < 0)
+        {
+            travelDir.y = -travelDir.y;
+        }
         angle = (cam.transform.forward + travelDir).normalized;
     }
 
     void CalSpeed()
     {
-        ObjectSpeed = 20f;
+        Debug.Log(swipeDistance);
+        ObjectSpeed = swipeDistance * 0.05f;
         return;
         FlickLength = swipeDistance;
         if (swipeTime > 0)
@@ -163,13 +169,5 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
             ObjectSpeed = -MaxObjectSpeed;
         }
         swipeTime = 0;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        /*if ()
-        {
-            
-        }*/
     }
 }
