@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     public int MaxHP = 100;
-    public int HP;
+    private int HP;
     public Slider healthBar;
     private bool isDead;
     public Animator animator;
@@ -21,7 +21,6 @@ public class EnemyHealth : MonoBehaviour
         {
             HP -= damageAmount;
             float currentHealthProc = (float)HP / (float)MaxHP;
-            Debug.Log(damageAmount);
             healthBar.value = currentHealthProc;
             if (isCritical)
             {
@@ -39,7 +38,6 @@ public class EnemyHealth : MonoBehaviour
                isDead = true;
                animator.SetBool("IsDead", true);
             }
-            Invoke("_ResetHit",0.04f);
         }
     }
     void _ResetHit()

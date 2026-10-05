@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6f15fcf10a85d44ba525a4d9209317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 0}
+  animator: {fileID: 8954142505746751905}
   AllSides:
   - Side: {fileID: 1052042630400605974}
     DamageNumber: 1
@@ -1070,7 +1070,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 10
   m_LinearDamping: 1
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.9
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

@@ -9,18 +9,15 @@ public class PlayerLogic : MonoBehaviour
     
     public InputActionAsset InputActions;
 
-    public float howClose = 6f;
-
     public GameObject[] spawnObjects;
     
     private InputAction m_DragStart_action;
     private InputAction m_DragCurrent_action;
-    private InputAction m_DragDelta_action;
     
-    public GameObject HeldDice;
+    private GameObject HeldDice;
+    private IMoveWithPointer _moveWithPointer;
     
     bool isDragging = false;
-    private IMoveWithPointer _moveWithPointer;
 
     private void OnEnable()
     {
@@ -36,9 +33,8 @@ public class PlayerLogic : MonoBehaviour
 
     private void Awake()
     {
-        m_DragStart_action = InputActions.FindAction("Tap Start Position");
+        m_DragStart_action = InputActions.FindAction("Drag Start Position");
         m_DragCurrent_action = InputActions.FindAction("Drag Current Position");
-        m_DragDelta_action = InputActions.FindAction("Drag Delta");
     }
 
     void Start()

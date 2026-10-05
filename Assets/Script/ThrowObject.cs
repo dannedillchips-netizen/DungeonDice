@@ -57,12 +57,12 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
         
             Vector3 v3 = currentPosition;
             v3.z = cam.nearClipPlane * howClose;
-            Vector3 OldPosition = transform.position;
+
+            Vector3 MovingDir = currentPosition - newPosition;
             transform.position = cam.ScreenToWorldPoint(v3);
-            Vector3 MovingDir =  (OldPosition - transform.position).normalized;
-            //Debug.Log(MovingDir);
-            //transform.rotation = Quaternion.LookRotation(MovingDir).ToEuler();
-            //transform.rotation = transform.rotation * ((Quaternion.LookRotation(MovingDir * Time.deltaTime)));
+
+            rb.AddTorque(MovingDir * (0.2f * Time.deltaTime), ForceMode.Force);
+
         }
     }
 
@@ -113,11 +113,9 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
             rb.AddForce(angle * ObjectSpeed, ForceMode.Impulse);
             rb.useGravity = true;
             Invoke("_DeSpawn",5);
-            Debug.Log("Throw");
         }
         else
         {
-            Debug.Log("ToSlow");
             _DeSpawn();
         }
     }
@@ -134,8 +132,6 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
 
     void MoveAngle()
     {
-        //angle = cam.ScreenToWorldPoint(new Vector3(endPos.y + 50f,(cam.nearClipPlane)- howClose, cam.nearClipPlane));
-        //angle = (cam.transform.forward + cam.transform.up).normalized;
         Vector3 v3Start = startPos;
         v3Start.z = cam.nearClipPlane * howClose;
         v3Start = cam.ScreenToWorldPoint(v3Start);
@@ -154,20 +150,6 @@ public class ThrowObject : MonoBehaviour,IMoveWithPointer
 
     void CalSpeed()
     {
-        Debug.Log(swipeDistance);
-        ObjectSpeed = swipeDistance * 0.05f;
-        return;
-        FlickLength = swipeDistance;
-        if (swipeTime > 0)
-        {
-            ObjectVelocity = FlickLength / (FlickLength - swipeTime);
-        }
-        ObjectSpeed =  ObjectVelocity * 5;
-        ObjectSpeed = ObjectSpeed - (ObjectSpeed * 1.7f);
-        if (ObjectSpeed < -MaxObjectSpeed)
-        {
-            ObjectSpeed = -MaxObjectSpeed;
-        }
-        swipeTime = 0;
+        ObjectSpeed = swipeDistance * 0.04f;
     }
 }
